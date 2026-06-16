@@ -17,11 +17,9 @@ def init_db():
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS callers (
-            id SERIAL PRIMARY KEY,
-            phone VARCHAR(30) UNIQUE NOT NULL,
-            name VARCHAR(255) NOT NULL,
-            source VARCHAR(50) DEFAULT 'personal'
-        );
+    ...
+    type VARCHAR(50) DEFAULT 'personal'
+);
     """)
 
     conn.commit()
@@ -43,7 +41,7 @@ def add_test():
     cur = conn.cursor()
 
     cur.execute("""
-        INSERT INTO callers (phone, name, source)
+        INSERT INTO callers (phone, name, type)
         VALUES (%s, %s, %s)
         ON CONFLICT (phone) DO NOTHING
     """, (
