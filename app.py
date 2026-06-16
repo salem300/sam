@@ -28,20 +28,6 @@ def init_db():
 def home():
     return jsonify({"status": "ok", "message": "Caller ID API Running"})
 
-@app.route("/add_test")
-def add_test():
-    conn = get_conn()
-    cur = conn.cursor()
-    cur.execute("""
-        INSERT INTO callers (phone, name, type)
-        VALUES (%s, %s, %s)
-        ON CONFLICT (phone)
-        DO UPDATE SET name = EXCLUDED.name, type = EXCLUDED.type
-    """, ("966500000000", "محمد أحمد", "personal"))
-    conn.commit()
-    cur.close()
-    conn.close()
-    return jsonify({"success": True, "message": "Test number added"})
 
 @app.route("/search")
 def search():
